@@ -1,0 +1,14 @@
+language: generic 
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t skyosev/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true skyosev/docker-react npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: eu-central-1
